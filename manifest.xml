@@ -1,0 +1,17 @@
+<package>
+  <description brief="ur_arm">
+
+     UR5 controller for visual servoing
+
+  </description>
+  <author>Wouter Caarls, Jethro Tan, Maarten de Vries, Berk Calli</author>
+  <license>GPL</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/ur_arm</url>
+  <depend package="roscpp"/>
+  <depend package="std_msgs"/>
+  <depend package="std_srvs"/>
+  <depend package="geometry_msgs"/>
+  <rosdep name="eigen"/>
+
+</package>

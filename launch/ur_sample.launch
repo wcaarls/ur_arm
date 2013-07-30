@@ -1,0 +1,12 @@
+<launch>
+
+	<node pkg="ur_arm" type="node" name="ur_arm" output="screen">
+		<param name="homing_joint_pos1" type="double" value="-0.0921" />
+		<param name="homing_joint_pos2" type="double" value="-1.68007" />
+		<param name="homing_joint_pos3" type="double" value="2.3832" />
+		<param name="homing_joint_pos4" type="double" value="-3.8498" />
+		<param name="homing_joint_pos5" type="double" value="-1.567" />
+		<param name="homing_joint_pos6" type="double" value="0" />
+  	</node>
+
+</launch>
