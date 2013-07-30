@@ -63,7 +63,7 @@ void Arm::moveJoints(JointAngles position, double speed, double accel)
   snprintf(buf, 255, "movej([%5.2f, %5.2f, %5.2f, %5.2f, %5.2f, %5.2f], %5.2f, %5.2f)\n",
       position.base, position.shoulder, position.elbow,
       position.wrist1, position.wrist2, position.wrist3,
-      speed, accel);
+      accel, speed);
 
 #ifdef DEBUG
   puts(buf);
@@ -81,7 +81,7 @@ void Arm::moveTool(ToolPosition position, double speed, double accel)
   snprintf(buf, 255, "movel(p[%5.2f, %5.2f, %5.2f, %5.2f, %5.2f, %5.2f], %5.2f, %5.2f)\n",
       position.x, position.y, position.z,
       position.roll, position.pitch, position.yaw,
-      speed, accel);
+      accel, speed);
 
 #ifdef DEBUG
   puts(buf);

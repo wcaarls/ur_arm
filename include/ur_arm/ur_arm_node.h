@@ -40,9 +40,22 @@ namespace ur_arm
       double &roll, double &pitch, double &yaw)
   {
     roll = std::atan2(2 * (q.w * q.x + q.y * q.z), 1 - 2 * (q.x * q.x + q.y * q.y));
-    pitch = std::asin(2 * (q.w * q.y + q.x * q.z));
+    pitch = std::asin(2 * (q.w * q.y - q.x * q.z));
     yaw = std::atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y * q.y + q.z * q.z));
   }
+  
+  inline void rpyToQuaternion(double roll, double pitch, double yaw,
+      geometry_msgs::Quaternion &q)
+  {
+    double cr2 = std::cos(roll/2), sr2 = std::sin(roll/2);
+    double cp2 = std::cos(pitch/2), sp2 = std::sin(pitch/2);
+    double cy2 = std::cos(yaw/2), sy2 = std::sin(yaw/2);
+    
+    q.w = cr2*cp2*cy2 + sr2*sp2*sy2;
+    q.x = sr2*cp2*cy2 - cr2*sp2*sy2;
+    q.y = cr2*sp2*cy2 + sr2*cp2*sy2;
+    q.z = cr2*cp2*sy2 - sr2*sp2*cy2;
+  }    
 
   class Command
   {

@@ -262,10 +262,7 @@ void ArmNode::publishToolPos()
 	yaw = std::atan2(forkin_solver.R[1][0],forkin_solver.R[0][0]);
 	pitch = std::atan2(-forkin_solver.R[2][0],std::sqrt(std::pow(forkin_solver.R[2][1],2.0)+std::pow(forkin_solver.R[2][2],2.0)));
 	roll = std::atan2(forkin_solver.R[2][1],forkin_solver.R[2][2]);
-	msg_pose.orientation.x = roll;
-	msg_pose.orientation.y = pitch;
-	msg_pose.orientation.z = yaw;
-	msg_pose.orientation.w = 0;
+	rpyToQuaternion(roll, pitch, yaw, msg_pose.orientation);
 	tool_pos_pub_.publish(msg_pose);
 
 
