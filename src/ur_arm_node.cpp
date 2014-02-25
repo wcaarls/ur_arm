@@ -139,6 +139,15 @@ void ArmNode::toolTaskFrameVelocityCallback(const geometry_msgs::Twist::ConstPtr
 
 }
 
+bool ArmNode::setDigitalOutCallback(ur_arm::SetDigitalOut::Request &request, ur_arm::SetDigitalOut::Response &response)
+{
+  lock();
+  arm_->setDigitalOut(request.number, request.level);
+  unlock();
+  
+  return true;
+}
+
 void ArmNode::init()
 {
   // Read parameters
@@ -156,8 +165,8 @@ void ArmNode::init()
   joint_pos_pub_ = nh_.advertise<ur_arm::Joints>("joint_pos", 1);
   joint_vel_pub_ = nh_.advertise<ur_arm::Joints>("joint_vel", 1);
   tool_pos_pub_ = nh_.advertise<geometry_msgs::Pose>("tool_pos", 1);
-
-
+  
+  srvsrvr_dio_ = nh_.advertiseService("set_digital_out", &ArmNode::setDigitalOutCallback, this);
 }
 
 bool ArmNode::homingCallback(std_srvs::Empty::Request &req,

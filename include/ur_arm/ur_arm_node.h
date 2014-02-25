@@ -25,7 +25,7 @@
 #include <geometry_msgs/Pose.h>
 #include <std_srvs/Empty.h>
 #include <ur_arm/Joints.h>
-
+#include <ur_arm/SetDigitalOut.h>
 
 #include <ur_arm/pose.h>
 
@@ -147,7 +147,7 @@ namespace ur_arm
       ros::NodeHandle nh_;
       ros::Subscriber joint_vel_sub_, tool_vel_sub_, joint_pos_sub_, tool_pos_sub_, toolTF_vel_sub_,sub_homing_command_;
       ros::Publisher joint_pos_pub_, joint_vel_pub_, tool_pos_pub_;
-      ros::ServiceServer srvsrvr_homing_;
+      ros::ServiceServer srvsrvr_homing_, srvsrvr_dio_;
       double frequency_, speed_, accel_;
 
       Arm *arm_;
@@ -186,6 +186,13 @@ namespace ur_arm
        * \param msg Pointer to a geometry_msgs/Twist message, containing the velocity in [m/s] and [rad/s]
        */
       void toolVelocityCallback(const geometry_msgs::Twist::ConstPtr &msg);
+
+      /// Called when a digital output needs to be set
+      /**
+       * Sends the new output status to the arm controller
+       * \param msg Pointer to a ur_arm/SetDigitalOut message, containing the output and level
+       */
+      bool setDigitalOutCallback(ur_arm::SetDigitalOut::Request &request, ur_arm::SetDigitalOut::Response &response);
 
       void publishJointInfo();
 

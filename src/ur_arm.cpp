@@ -29,7 +29,7 @@
 
 #include "ur_arm/ur_arm.h"
 
-#define BUFSIZE 1024
+#define BUFSIZE 2048
 
 using namespace ur_arm;
 
@@ -116,6 +116,23 @@ void Arm::setToolSpeed(ToolTwist speed, double accel, double time)
       speed.x, speed.y, speed.z,
       speed.roll, speed.pitch, speed.yaw,
       accel, time);
+
+#ifdef DEBUG
+  puts(buf);
+#endif
+
+  if (write(socket_, buf, strlen(buf)) != (ssize_t)strlen(buf))
+    throw("couldn't send command to universal robots arm");
+}
+
+void Arm::setDigitalOut(uint8_t number, bool level)
+{
+  char buf[255];
+
+  if (level)
+    snprintf(buf, 255, "set_digital_out(%d, True)\n", number);
+  else
+    snprintf(buf, 255, "set_digital_out(%d, False)\n", number);
 
 #ifdef DEBUG
   puts(buf);

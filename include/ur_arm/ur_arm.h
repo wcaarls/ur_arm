@@ -108,6 +108,7 @@ namespace ur_arm
     void moveTool(ToolPosition position, double speed, double accel);
     void setJointSpeeds(JointSpeeds speed, double accel, double time);
     void setToolSpeed(ToolTwist speed, double accel, double time);
+    void setDigitalOut(uint8_t number, bool level);
 
     /// Read feedback from robot
     void update();
